@@ -40,6 +40,7 @@ iDared 32bit is built, tested and released as a native **iOS** app for iPhone an
 
 * Officially supported:
   * iOS, released on the App Store.
+  * iOS Simulator on Apple Silicon and Intel Macs, for development. See the [Simulator build instructions](dev-docs/building.md#ios-simulator).
   * AArch64 macOS, which is used for development. You must build it yourself.
 * Inherited from touchHLE, but not verified in this fork: x64 macOS, x64 and AArch64 Linux, x64 Windows and AArch64 Android. You must build these yourself.
 
