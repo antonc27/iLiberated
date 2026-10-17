@@ -64,7 +64,7 @@
 		E36F8FD62DD1B16400950EF2 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		E36F8FD82DD1B17400950EF2 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
 		E36F91AB2DD1BCF300950EF2 /* touchHLE_fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = touchHLE_fonts; path = ../touchHLE_fonts; sourceTree = SOURCE_ROOT; };
-		E3A46EC32DD1A44100619FED /* iLiberated.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iLiberated.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E3A46EC32DD1A44100619FED /* iLiberated.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iLiberated.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3A46EDD2DD1A79A00619FED /* SDL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDL.xcodeproj; path = ../vendor/SDL/Xcode/SDL/SDL.xcodeproj; sourceTree = "<absolute>"; };
 		E3C0F1600000000000000001 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = SOURCE_ROOT; };
 		E3FACE0000000000000010 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
@@ -230,15 +230,15 @@
 			buildRules = (
 			);
 			dependencies = (
-				E3FACE0000000000000031 /* touchHLE.a (static library) */,
+				E3FACE0000000000000031 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				E3A46EC52DD1A44100619FED /* iLiberated */,
 			);
-			name = "iLiberated";
+			name = iLiberated;
 			packageProductDependencies = (
 			);
-			productName = "iLiberated";
+			productName = iLiberated;
 			productReference = E3A46EC32DD1A44100619FED /* iLiberated.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -314,7 +314,7 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		E3FACE0000000000000031 /* touchHLE.a (static library) */ = {
+		E3FACE0000000000000031 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "touchHLE.a (static library)";
 			targetProxy = E3FACE0000000000000030 /* PBXContainerItemProxy */;
@@ -452,12 +452,13 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				"CODE_SIGN_ENTITLEMENTS[sdk=iphoneos*]" = iLiberated/iLiberated.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 7L57XJNDRA;
 				EXCLUDED_SOURCE_FILE_NAMES = "*.dylib";
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = ../vendor/SDL/include;
 				INFOPLIST_FILE = Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "iLiberated";
+				INFOPLIST_KEY_CFBundleDisplayName = iLiberated;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
@@ -492,12 +493,13 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				"CODE_SIGN_ENTITLEMENTS[sdk=iphoneos*]" = iLiberated/iLiberated.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 7L57XJNDRA;
 				EXCLUDED_SOURCE_FILE_NAMES = "*.dylib";
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = ../vendor/SDL/include;
 				INFOPLIST_FILE = Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "iLiberated";
+				INFOPLIST_KEY_CFBundleDisplayName = iLiberated;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
@@ -595,11 +597,12 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = iLiberated/iLiberated.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 7L57XJNDRA;
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = ../vendor/SDL/include;
 				INFOPLIST_FILE = Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "iLiberated";
+				INFOPLIST_KEY_CFBundleDisplayName = iLiberated;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
