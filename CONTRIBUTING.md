@@ -20,11 +20,11 @@ Include the iLiberated version, your device and iOS version, what you did, what 
 ### Getting the code
 
 ```
-$ git clone https://github.com/antonc27/iDared32bit.git
+$ git clone https://github.com/antonc27/iLiberated.git
 $ cd iliberated-private
 ```
 
-To contribute, [fork the repository](https://github.com/antonc27/iDared32bit/fork) on GitHub, push a branch to your fork, and open a pull request against the default branch.
+To contribute, [fork the repository](https://github.com/antonc27/iLiberated/fork) on GitHub, push a branch to your fork, and open a pull request against the default branch.
 
 ### Before you open one
 

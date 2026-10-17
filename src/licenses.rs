@@ -18,10 +18,10 @@ iLiberated is not affiliated with or endorsed by iDared or Apple Inc.
 iLiberated is not endorsed by the touchHLE project.
 Please send questions, problems and compatibility reports to iLiberated,
 rather than to those projects or touchHLE's compatibility database:
-<https://github.com/antonc27/iDared32bit/issues>.
+<https://github.com/antonc27/iLiberated/issues>.
 
 Source code for iLiberated, including the version of touchHLE it is based
-on, is available at <https://github.com/antonc27/iDared32bit>.
+on, is available at <https://github.com/antonc27/iLiberated>.
 
 The copyright, authorship and license information below applies to iLiberated
 in full.

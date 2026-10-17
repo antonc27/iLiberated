@@ -39,7 +39,7 @@ You need [git](https://git-scm.com/), [the Rust toolchain](https://www.rust-lang
 First check out the git repo, including its submodules:
 
 ```
-git clone --recursive https://github.com/antonc27/iDared32bit.git
+git clone --recursive https://github.com/antonc27/iLiberated.git
 ```
 
 (In an existing checkout, `git submodule update --init` fetches the submodules.) **If you intend to contribute**, please also read [the contributing guide](../CONTRIBUTING.md).
