@@ -1,12 +1,13 @@
 #!/bin/bash
-# Usage: dev-scripts/squash-cherry-pick.sh [--delete-branches] BRANCH
+# Usage: dev-scripts/squash-cherry-pick.sh [--remote REMOTE] BRANCH
 #
-# Fetch BRANCH from origin, squash its changes since the common ancestor,
-# and cherry-pick them as one commit onto the current branch. The new commit
-# uses the current Git committer as its author. Source branches are kept by
-# default. Pass --delete-branches to delete BRANCH from origin and locally
-# (if it exists) after a successful import. The current branch is not pushed.
-# Requires a clean working tree. On conflicts, source branches are kept.
+# Search all configured remotes for BRANCH, or select one with --remote.
+# Fetch BRANCH, squash its changes since the common ancestor, and cherry-pick
+# them as one commit onto the current branch, with the author reset to the
+# current Git committer. Requires a clean working tree.
+# Source branches are kept. To remove them afterward, run delete-branch.sh
+# with the same branch name (and --remote, if needed).
+# The current branch is not pushed.
 set -euo pipefail
 
 die() {
@@ -14,24 +15,29 @@ die() {
     exit 1
 }
 
-USAGE="Usage: $0 [--delete-branches] BRANCH (the branch name on origin, without origin/)"
-DELETE_BRANCHES=0
+USAGE="Usage: $0 [--remote REMOTE] BRANCH (without a remote prefix)"
+REQUESTED_REMOTE=
 SOURCE_BRANCH=
-for argument in "$@"; do
-    case "$argument" in
-        --delete-branches) DELETE_BRANCHES=1 ;;
-        -*) die "Unknown option: $argument. $USAGE" ;;
+while [ $# -gt 0 ]; do
+    case "$1" in
+        --remote)
+            [ $# -ge 2 ] && [ -n "$2" ] || die "$USAGE"
+            [ -z "$REQUESTED_REMOTE" ] || die "Specify --remote only once. $USAGE"
+            REQUESTED_REMOTE=$2
+            shift
+            ;;
+        -*) die "Unknown option: $1. $USAGE" ;;
         *)
-            if [ -n "$SOURCE_BRANCH" ] || [ -z "$argument" ]; then
+            if [ -n "$SOURCE_BRANCH" ] || [ -z "$1" ]; then
                 die "$USAGE"
             fi
-            SOURCE_BRANCH=$argument
+            SOURCE_BRANCH=$1
             ;;
     esac
+    shift
 done
 [ -n "$SOURCE_BRANCH" ] || die "$USAGE"
 SOURCE_REF="refs/heads/$SOURCE_BRANCH"
-REMOTE_REF="refs/remotes/origin/$SOURCE_BRANCH"
 if ! git check-ref-format --branch "$SOURCE_BRANCH" > /dev/null 2>&1 ||
     ! git check-ref-format "$SOURCE_REF" > /dev/null 2>&1; then
     die "Invalid branch name: $SOURCE_BRANCH"
@@ -53,22 +59,46 @@ WORKTREE_STATUS=$(git status --porcelain --untracked-files=all)
     die "Commit or stash all changes, including untracked files, first."
 git var GIT_COMMITTER_IDENT > /dev/null
 
-# A squash does not preserve ancestry, so deletion will need -D. Refuse to
-# remove a branch checked out elsewhere or containing unimported local work.
-if [ "$DELETE_BRANCHES" -eq 1 ]; then
-    while IFS= read -r line; do
-        [ "$line" != "branch $SOURCE_REF" ] ||
-            die "The source branch is checked out in another worktree."
-    done < <(git worktree list --porcelain)
+# Inspect live refs, since remote-tracking branches may be stale or unfetched.
+REMOTES=$(git remote)
+[ -n "$REMOTES" ] || die "No Git remotes are configured."
+if [ -n "$REQUESTED_REMOTE" ]; then
+    git remote get-url -- "$REQUESTED_REMOTE" > /dev/null 2>&1 ||
+        die "Unknown remote: $REQUESTED_REMOTE"
+    REMOTES=$REQUESTED_REMOTE
 fi
+SOURCE_REMOTE=
+MATCH_COUNT=0
+MATCHING_REMOTES=
+FAILED_REMOTES=
+CHECKED_REMOTES=
+while IFS= read -r remote; do
+    CHECKED_REMOTES="${CHECKED_REMOTES:+$CHECKED_REMOTES, }$remote"
+    if REMOTE_BRANCHES=$(git ls-remote --heads -- "$remote" "$SOURCE_REF"); then
+        while read -r _object_id ref; do
+            if [ "$ref" = "$SOURCE_REF" ]; then
+                SOURCE_REMOTE=$remote
+                MATCH_COUNT=$((MATCH_COUNT + 1))
+                MATCHING_REMOTES="${MATCHING_REMOTES:+$MATCHING_REMOTES, }$remote"
+                break
+            fi
+        done <<< "$REMOTE_BRANCHES"
+    else
+        FAILED_REMOTES="${FAILED_REMOTES:+$FAILED_REMOTES, }$remote"
+    fi
+done <<< "$REMOTES"
+[ -z "$FAILED_REMOTES" ] ||
+    die "Could not check remotes: $FAILED_REMOTES. Fix access or select a remote with --remote REMOTE."
+[ "$MATCH_COUNT" -gt 0 ] ||
+    die "Branch $SOURCE_BRANCH was not found on the checked remotes: $CHECKED_REMOTES. Check the branch name with git ls-remote --heads REMOTE."
+[ "$MATCH_COUNT" -eq 1 ] ||
+    die "Branch $SOURCE_BRANCH exists on multiple remotes: $MATCHING_REMOTES. Select one with --remote REMOTE."
 
-git fetch --no-tags --no-recurse-submodules origin "+$SOURCE_REF:$REMOTE_REF"
+REMOTE_REF="refs/remotes/$SOURCE_REMOTE/$SOURCE_BRANCH"
+echo "Fetching $SOURCE_BRANCH from $SOURCE_REMOTE."
+git fetch --no-tags --no-recurse-submodules -- "$SOURCE_REMOTE" "+$SOURCE_REF:$REMOTE_REF" ||
+    die "Could not fetch $SOURCE_REMOTE/$SOURCE_BRANCH; no changes imported."
 SOURCE_HEAD=$(git rev-parse --verify "$REMOTE_REF^{commit}")
-LOCAL_HEAD=$(git rev-parse --verify "$SOURCE_REF" 2>/dev/null || true)
-if [ "$DELETE_BRANCHES" -eq 1 ] && [ -n "$LOCAL_HEAD" ]; then
-    git merge-base --is-ancestor "$LOCAL_HEAD" "$SOURCE_HEAD" ||
-        die "Local $SOURCE_BRANCH contains commits absent from origin; keeping both branches."
-fi
 
 BASE=$(git merge-base --all "$START_HEAD" "$SOURCE_HEAD") ||
     die "The branches have no common ancestor."
@@ -98,24 +128,4 @@ fi
 git commit --reset-author -C "$SQUASHED_COMMIT" ||
     die "Commit failed; the import remains staged and both source branches are kept."
 
-if [ "$DELETE_BRANCHES" -eq 0 ]; then
-    echo "Imported $SOURCE_BRANCH onto $CURRENT_BRANCH as one commit; source branches kept."
-    exit 0
-fi
-
-# Keep the local branch if remote deletion fails. The lease prevents deleting
-# commits pushed by someone else since the fetch, even after a force-push.
-if [ "$(git rev-parse --verify "$SOURCE_REF" 2>/dev/null || true)" != "$LOCAL_HEAD" ]; then
-    die "Import committed, but local $SOURCE_BRANCH changed; skipping branch deletion."
-fi
-if ! git push --no-follow-tags --recurse-submodules=no \
-    --force-with-lease="$SOURCE_REF:$SOURCE_HEAD" origin ":$SOURCE_REF"; then
-    die "Import committed on $CURRENT_BRANCH, but remote deletion failed; local source branch kept."
-fi
-if [ -n "$LOCAL_HEAD" ]; then
-    [ "$(git rev-parse --verify "$SOURCE_REF" 2>/dev/null || true)" = "$LOCAL_HEAD" ] ||
-        die "Import committed and remote branch deleted, but local branch changed; keeping it."
-    git branch -D -- "$SOURCE_BRANCH" ||
-        die "Import committed and remote branch deleted, but local branch deletion failed."
-fi
-echo "Imported $SOURCE_BRANCH onto $CURRENT_BRANCH as one commit and deleted the source branches."
+echo "Imported $SOURCE_REMOTE/$SOURCE_BRANCH onto $CURRENT_BRANCH as one commit; source branches kept."
