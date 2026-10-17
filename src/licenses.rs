@@ -14,7 +14,8 @@ Compared with touchHLE, it inherits these changes from iDared 32bit:
   - The guest-facing OpenAL uses SDL audio (replaces OpenAL Soft library)
 
 This build includes work by the iDared 32bit and touchHLE contributors.
-iLiberated is not affiliated with or endorsed by iDared or touchHLE.
+iLiberated is not affiliated with or endorsed by iDared or Apple Inc.
+iLiberated is not endorsed by the touchHLE project.
 Please send questions, problems and compatibility reports to iLiberated,
 rather than to those projects or touchHLE's compatibility database:
 <https://github.com/antonc27/iDared32bit/issues>.

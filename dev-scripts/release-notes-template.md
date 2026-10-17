@@ -5,7 +5,7 @@ specific games. Leave out sections and lines that don't apply. Delete this
 comment before publishing.
 -->
 
-This is the source for iLiberated VERSION (build BUILD), an independent fork unaffiliated with iDared or touchHLE.
+This is the source for iLiberated VERSION (build BUILD), an independent fork. iLiberated is not affiliated with or endorsed by iDared or Apple Inc. iLiberated is not endorsed by the touchHLE project.
 
 ## What's new
 

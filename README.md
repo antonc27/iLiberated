@@ -2,7 +2,7 @@
 
 **iLiberated** runs classic 32-bit iPhone OS apps and games on modern iPhones and iPads.
 
-It is an independent fork of **iDared 32bit**, which is based on **[touchHLE](https://github.com/touchHLE/touchHLE)**, a high-level emulator for early iPhone OS apps. iLiberated is not affiliated with or endorsed by iDared or touchHLE.
+It is an independent fork of **iDared 32bit**, which is based on **[touchHLE](https://github.com/touchHLE/touchHLE)**, a high-level emulator for early iPhone OS apps. iLiberated is not affiliated with or endorsed by iDared or Apple Inc. iLiberated is not endorsed by the touchHLE project.
 The emulation and iOS host build on work by those projects; their authorship and license notices are preserved.
 
 Project and source: <https://github.com/antonc27/iliberated>
@@ -59,7 +59,7 @@ Only use iLiberated to emulate software you have obtained legally.
 
 Not an official iDared 32bit release, and not affiliated with or endorsed by the iDared 32bit project. Please send iLiberated questions, problems and compatibility reports to this repository, not to iDared's support channels.
 
-Not an official touchHLE release — please direct questions or problems regarding iLiberated here, not to the touchHLE project.
+Not endorsed by the touchHLE project — please direct questions or problems regarding iLiberated here, not to the touchHLE project.
 
 Not affiliated with or endorsed by the mGBA project, whose ARM interpreter iLiberated's CPU core is derived from — please direct questions or problems regarding iLiberated here, not to the mGBA project.
 
