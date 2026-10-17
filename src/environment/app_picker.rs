@@ -297,7 +297,7 @@ const CLASSES: ClassExports = objc_classes! {
     // Assert (see above).
     let _ = env.objc.borrow_mut::<AppPickerDelegateHostObject>(this);
 
-    if let Err(e) = crate::window::open_url(env, "https://github.com/antonc27/iDared32bit") {
+    if let Err(e) = crate::window::open_url(env, "https://antonc27.github.io/iliberated/") {
         echo!("Couldn't open the iLiberated project page: {}", e);
     }
 }
