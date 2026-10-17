@@ -122,6 +122,15 @@ pub fn handle_events(env: &mut Environment) -> Option<Instant> {
                 ui_touch::handle_event(env, event)
             }
             Event::AppWillResignActive => {
+                if cfg!(target_os = "ios") && env.is_app_picker {
+                    // Files and website buttons leave the picker temporarily.
+                    // Wait on the host stack so UIKit can run, without drawing
+                    // OpenGL frames while iOS has us in the background.
+                    env.on_parent_stack_in_coroutine(|window, _| {
+                        window.wait_for_foreground();
+                    });
+                    continue;
+                }
                 // Getting this event means touchHLE is becoming inactive, e.g.
                 // due to switching apps. The obvious way to handle this would
                 // be to just send `applicationWillResignActive:` to the

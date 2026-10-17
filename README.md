@@ -58,8 +58,10 @@ Not affiliated with or endorsed by the mGBA project, whose ARM interpreter iDare
 
 ## Graphical user interface
 
-On iPhone and iPad, iDared 32bit has its own native app picker; other platforms use the built-in app picker inherited from touchHLE. If you put your `.ipa` files and `.app` bundles in the `Games` folder, they will show up in the app picker when you run iDared 32bit. Note that the app binary must not be encrypted to be usable.
+iDared 32bit uses the same built-in app picker on all platforms. If you put your `.ipa` files and `.app` bundles in the `Games` folder, they will show up in the app picker when you run iDared 32bit. Note that the app binary must not be encrypted to be usable.
 To access the `Games` folder, simply tap the “File manager” button in iDared 32bit.
+
+On iPhone and iPad, the File manager button opens the app's Documents folder in Files. You can return to the picker after using Files or visiting the website. Quick options apply to the next game you launch, and Copyright info shows the bundled license notices.
 
 To configure the options, you can edit the `Options.txt` file. To get a list of options, look in the `OPTIONS_HELP.txt` file.
 

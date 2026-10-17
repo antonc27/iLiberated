@@ -1,13 +1,8 @@
 //! App picker GUI.
 //!
 //! This also includes a license text viewer. The license text viewer is needed
-//! on Android, where the command-line way to view license text doesn't exist.
-//!
-//! On iOS, a native SwiftUI picker is used instead when the app provides one
-//! (see `app_picker/swiftui.rs`).
-
-#[cfg(target_os = "ios")]
-mod swiftui;
+//! on mobile platforms, where the command-line way to view license text doesn't
+//! exist.
 
 use crate::bundle::Bundle;
 use crate::frameworks::core_graphics::cg_bitmap_context::{
@@ -86,10 +81,6 @@ pub fn app_picker(options: Options) -> Result<(PathBuf, Vec<String>), String> {
             })
     };
 
-    #[cfg(target_os = "ios")]
-    if swiftui::is_available() {
-        return swiftui::app_picker(apps);
-    }
     show_app_picker_gui(options, apps)
 }
 
@@ -291,6 +282,7 @@ const CLASSES: ClassExports = objc_classes! {
                 echo!("Couldn't open file manager at {:?}: {}", url, e);
             } else {
                 echo!("Opened file manager at {:?}.", url);
+                // iOS opens Files and lets the user return to this picker.
                 if std::env::consts::OS != "ios" {
                     echo!("Exiting.");
                     std::process::exit(0);
@@ -1585,19 +1577,15 @@ fn change_copyright_page(
     () = msg![env; next_page_button setHidden:(Some(page_idx) == *last_page_idx)];
 }
 
-/// One of the quick options. Both this picker and the SwiftUI one on iOS
-/// (see `app_picker/swiftui.rs`) are built from [QUICK_OPTIONS].
-pub(super) struct QuickOption {
-    pub label: &'static str,
-    /// Shown under the option in the SwiftUI picker.
-    #[cfg_attr(not(target_os = "ios"), allow(dead_code))]
-    pub footer: &'static str,
-    pub kind: QuickOptionKind,
+/// One of the quick options in [QUICK_OPTIONS].
+struct QuickOption {
+    label: &'static str,
+    kind: QuickOptionKind,
     /// Hidden on always-fullscreen platforms.
-    pub desktop_only: bool,
+    desktop_only: bool,
 }
 
-pub(super) enum QuickOptionKind {
+enum QuickOptionKind {
     /// Each choice is its title and the option argument it adds. The first is
     /// the default.
     Choice(&'static [(&'static str, Option<&'static str>)]),
@@ -1611,7 +1599,7 @@ pub(super) enum QuickOptionKind {
 
 impl QuickOption {
     /// The choice index, or for a switch, 1 if it's on.
-    pub fn default_value(&self) -> usize {
+    fn default_value(&self) -> usize {
         match self.kind {
             QuickOptionKind::Choice(_) => 0,
             QuickOptionKind::Switch { default, .. } => default as usize,
@@ -1635,7 +1623,6 @@ impl QuickOption {
 const QUICK_OPTIONS: &[QuickOption] = &[
     QuickOption {
         label: "Scale hack",
-        footer: "Runs the app at a higher resolution. This may not work with every app.",
         kind: QuickOptionKind::Choice(&[
             ("Default", None),
             ("Off", Some("--scale-hack=1")),
@@ -1647,7 +1634,6 @@ const QUICK_OPTIONS: &[QuickOption] = &[
     },
     QuickOption {
         label: "Orientation",
-        footer: "For apps that are in the wrong orientation.",
         kind: QuickOptionKind::Choice(&[
             ("Default", None),
             ("←", Some("--landscape-left")),
@@ -1658,7 +1644,6 @@ const QUICK_OPTIONS: &[QuickOption] = &[
     },
     QuickOption {
         label: "Network access",
-        footer: "Without this, apps see what an iPhone in airplane mode would.",
         kind: QuickOptionKind::Switch {
             default: false,
             on: Some("--allow-network-access"),
@@ -1668,7 +1653,6 @@ const QUICK_OPTIONS: &[QuickOption] = &[
     },
     QuickOption {
         label: "Use analog sticks for tilt controls",
-        footer: "Use a controller's analog sticks to tilt the device.",
         kind: QuickOptionKind::Switch {
             default: true,
             on: None,
@@ -1678,7 +1662,6 @@ const QUICK_OPTIONS: &[QuickOption] = &[
     },
     QuickOption {
         label: "Fullscreen (override)",
-        footer: "",
         kind: QuickOptionKind::Switch {
             default: false,
             on: Some("--fullscreen"),
@@ -1689,7 +1672,7 @@ const QUICK_OPTIONS: &[QuickOption] = &[
 ];
 
 /// The quick options shown on this platform.
-pub(super) fn quick_options() -> impl Iterator<Item = &'static QuickOption> {
+fn quick_options() -> impl Iterator<Item = &'static QuickOption> {
     QUICK_OPTIONS
         .iter()
         .filter(|option| !option.desktop_only || !crate::window::Window::rotatable_fullscreen())
@@ -1697,7 +1680,7 @@ pub(super) fn quick_options() -> impl Iterator<Item = &'static QuickOption> {
 
 /// The option arguments for the values (see [QuickOption::default_value]) of
 /// [quick_options].
-pub(super) fn quick_option_args(values: &[usize]) -> impl Iterator<Item = String> + '_ {
+fn quick_option_args(values: &[usize]) -> impl Iterator<Item = String> + '_ {
     quick_options()
         .zip(values)
         .filter_map(|(option, &value)| option.arg(value).map(ToOwned::to_owned))

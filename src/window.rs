@@ -793,8 +793,8 @@ impl Window {
                     self.high_priority_event = Some(Event::AppWillResignActive);
                     // For some reason, if we don't pause event polling, we will
                     // never finish handling the event.
-                    // TODO: Add a mechanism for re-enabling polling, if at some
-                    // point we support returning touchHLE to the foreground.
+                    // The iOS app picker resumes via wait_for_foreground;
+                    // guest apps still terminate when they become inactive.
                     self.enable_event_polling = false;
                     continue;
                 }
@@ -1124,6 +1124,17 @@ impl Window {
         self.high_priority_event
             .take()
             .or_else(|| self.event_queue.pop_front())
+    }
+
+    /// Suspend the iOS app picker until it becomes active again. Called on the
+    /// host stack after consuming [Event::AppWillResignActive], while normal
+    /// event polling is disabled. Termination must still reach UIKit.
+    pub fn wait_for_foreground(&mut self) {
+        assert!(self.on_main_stack);
+        assert!(!self.enable_event_polling);
+        assert!(self.high_priority_event.is_none());
+        self.high_priority_event = wait_for_foreground_event(self.event_pump.wait_iter());
+        self.enable_event_polling = self.high_priority_event.is_none();
     }
 
     fn controller_added(&mut self, joystick_idx: u32) {
@@ -2153,6 +2164,22 @@ pub fn get_battery_status() -> (i32, BatteryState) {
     )
 }
 
+/// SDL's wait iterator pumps the host run loop without running the picker or
+/// rendering. Ignore intermediate background/foreground events until the app
+/// is active, but allow a quit or termination request to interrupt the wait.
+fn wait_for_foreground_event(events: impl Iterator<Item = sdl2::event::Event>) -> Option<Event> {
+    use sdl2::event::Event as E;
+    for event in events {
+        match event {
+            E::AppDidEnterForeground { .. } => return None,
+            E::AppTerminating { .. } => return Some(Event::AppWillTerminate),
+            E::Quit { .. } => return Some(Event::Quit),
+            _ => {}
+        }
+    }
+    unreachable!("The SDL event wait iterator never ends");
+}
+
 pub fn get_preferred_language_codes(env: &mut Environment) -> Vec<String> {
     env.on_parent_stack_in_coroutine(|_, _| {
         sdl2::locale::get_preferred_locales()
@@ -2167,4 +2194,46 @@ pub fn get_preferred_country_codes(env: &mut Environment) -> Vec<String> {
             .filter_map(|loc| loc.country)
             .collect()
     })
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{wait_for_foreground_event, Event};
+    use sdl2::event::Event as E;
+
+    #[test]
+    fn picker_waits_until_active_before_resuming() {
+        let mut events = [
+            E::AppWillEnterBackground { timestamp: 0 },
+            E::AppDidEnterBackground { timestamp: 1 },
+            E::AppLowMemory { timestamp: 2 },
+            E::AppWillEnterForeground { timestamp: 3 },
+            E::AppDidEnterForeground { timestamp: 4 },
+            E::Quit { timestamp: 5 },
+        ]
+        .into_iter();
+        assert!(wait_for_foreground_event(&mut events).is_none());
+        // Events after resuming are left for normal polling.
+        assert!(matches!(events.next(), Some(E::Quit { timestamp: 5 })));
+    }
+
+    #[test]
+    fn picker_can_terminate_while_in_background() {
+        let events = [
+            E::AppDidEnterBackground { timestamp: 0 },
+            E::AppTerminating { timestamp: 1 },
+        ];
+        assert!(matches!(
+            wait_for_foreground_event(events.into_iter()),
+            Some(Event::AppWillTerminate)
+        ));
+    }
+
+    #[test]
+    fn picker_can_quit_while_in_background() {
+        assert!(matches!(
+            wait_for_foreground_event([E::Quit { timestamp: 0 }].into_iter()),
+            Some(Event::Quit)
+        ));
+    }
 }
