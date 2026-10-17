@@ -746,7 +746,7 @@ struct QuickOptionsView: View {
     @ObservedObject var model: PickerModel
 
     var body: some View {
-        NavigationStack {
+        NavigationView {
             Form {
                 ForEach(model.input.quickOptions.indices, id: \.self) { i in
                     section(i)
