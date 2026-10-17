@@ -297,8 +297,8 @@ const CLASSES: ClassExports = objc_classes! {
     // Assert (see above).
     let _ = env.objc.borrow_mut::<AppPickerDelegateHostObject>(this);
 
-    if let Err(e) = crate::window::open_url(env, "https://iDared32bit-emu.com/") {
-        echo!("Couldn't open iDared32bit-emu.com: {}", e);
+    if let Err(e) = crate::window::open_url(env, "https://github.com/antonc27/iDared32bit") {
+        echo!("Couldn't open the iLiberated project page: {}", e);
     }
 }
 
@@ -494,7 +494,7 @@ fn show_app_picker_gui(
     apps: Result<Vec<AppInfo>, String>,
 ) -> Result<(PathBuf, Vec<String>), String> {
     let icon = {
-        // iDared 32bit has one icon for every branding.
+        // iLiberated has one icon for every branding.
         let bytes: &[u8] = include_bytes!(concat!(env!("CARGO_MANIFEST_DIR"), "/res/icon.png"));
         let mut image = Image::from_bytes(bytes).unwrap();
         // should match Bundle::load_icon()
@@ -638,7 +638,7 @@ fn app_picker_inner(
         let mut font_size: CGFloat = 12.0;
         let mut font: id = msg_class![env; UIFont systemFontOfSize:font_size];
         let full_text = format!(
-            "iDared 32bit {}{}{}",
+            "iLiberated {}{}{}",
             crate::branding(),
             if crate::branding().is_empty() {
                 ""
@@ -830,7 +830,7 @@ fn app_picker_inner(
         buttons_row2_center,
         &[
             ("Copyright info", "copyrightInfoShow"),
-            ("iDared 32bit Web", "visitWebsite"),
+            ("iLiberated Web", "visitWebsite"),
         ],
         None,
     );

@@ -1,28 +1,33 @@
-<p align="center"><img src="iphone/iDared32bit/Assets.xcassets/AppPickerLogo.imageset/AppPickerLogo@3x.png" alt="iDared 32bit logo" width="345"></p>
+<p align="center"><img src="iphone/iLiberated/Assets.xcassets/AppPickerLogo.imageset/AppPickerLogo@3x.png" alt="iLiberated logo" width="345"></p>
 
-**iDared 32bit** runs classic 32-bit iPhone OS apps and games on modern iPhones and iPads.
+**iLiberated** runs classic 32-bit iPhone OS apps and games on modern iPhones and iPads.
 
-It is a fork of **[touchHLE](https://github.com/touchHLE/touchHLE)**, a high-level emulator for early iPhone OS apps, packaged as a native iOS app.
-The emulation is touchHLE's work; this fork adds the iOS host and the build-specific changes noted below.
+It is an independent fork of **iDared 32bit**, which is based on **[touchHLE](https://github.com/touchHLE/touchHLE)**, a high-level emulator for early iPhone OS apps. iLiberated is not affiliated with or endorsed by iDared or touchHLE.
+The emulation and iOS host build on work by those projects; their authorship and license notices are preserved.
 
-Website (including the privacy policy): <https://idared32bit-emu.com/>
+Project and source: <https://github.com/antonc27/iliberated>
+
+Support and compatibility reports: <https://github.com/antonc27/iliberated/issues>
 
 ## What's different in this build
 
 - **iOS host app** which runs as a native app on iPhone and iPad.
 - **An interpreter instead of Dynarmic** for CPU emulation. The CPU core is an ARM interpreter derived from [mGBA](https://github.com/mgba-emu/mgba)'s, extended from ARMv4T to ARMv7s, with Thumb-2, VFPv3/VFPv4 and NEON. The only code run by the [emulated CPU](vendor/mgba_arm/) is the app binary and [a handful of libraries](touchHLE_dylibs/).
 - **OpenAL via SDL Audio** for the guest-facing `OpenAL.framework` and Audio Toolbox playback, instead of the OpenAL Soft C library.
-- **Changes not in upstream touchHLE** — the maintainer ([@apexad](https://github.com/apexad)) contributed to touchHLE until this App Store release, which the touchHLE project did not want, and is no longer part of that project. This build includes changes, some originally written for touchHLE, that enable games not supported upstream.
+- **Changes inherited from iDared 32bit** — including work by Alex Martin ([@apexad](https://github.com/apexad)) and other contributors that enables games not supported by upstream touchHLE.
+
+## Based on iDared 32bit
+
+- Upstream project: <https://github.com/iDared32bit-emu/iDared32bit>
 
 ## Based on touchHLE
 
 For reference only:
-
-- Upstream project: <https://github.com/touchHLE/touchHLE>
+- Original project: <https://github.com/touchHLE/touchHLE>
 - touchHLE's website: <https://touchhle.org/>
 - touchHLE app compatibility database: <https://appdb.touchhle.org/>
 
-These belong to touchHLE, not iDared 32bit. **Do not ask touchHLE for support with iDared 32bit, and do not submit iDared 32bit app compatibility results to touchHLE's website or its app compatibility database.** Please bring questions, problems and compatibility reports for iDared 32bit here instead.
+These belong to touchHLE, not iLiberated. **Do not ask touchHLE for support with iLiberated, and do not submit iLiberated app compatibility results to touchHLE's website or its app compatibility database.** Please bring questions, problems and compatibility reports for iLiberated here instead.
 
 The goal of this project is to run games from the early days of iOS:
 
@@ -30,36 +35,38 @@ The goal of this project is to run games from the early days of iOS:
 * Later: iOS 5.x and beyond.
 * [Never](https://github.com/touchHLE/touchHLE/issues/181#issuecomment-1777098259): 64-bit iOS.
 
-**This does not mean that all apps for these OS versions work.** The vast majority of iPhone OS 2.x, iPhone OS 3.x and iOS 4.x apps do not currently work in touchHLE or iDared 32bit, and the ones that do work are generally games (support for other apps isn't a priority: it's more complex and less fun). This improves gradually over time with contributions from various developers. touchHLE's app compatibility database tracks touchHLE only; it does not cover iDared 32bit. **We don't take requests, so please do not ask us to support your favourite game.**
+**This does not mean that all apps for these OS versions work.** The vast majority of iPhone OS 2.x, iPhone OS 3.x and iOS 4.x apps do not currently work in touchHLE or iLiberated, and the ones that do work are generally games (support for other apps isn't a priority: it's more complex and less fun). This improves gradually over time with contributions from various developers. touchHLE's app compatibility database tracks touchHLE only; it does not cover iLiberated. **We don't take requests, so please do not ask us to support your favourite game.**
 
-Because iDared 32bit uses a different CPU backend, SDL-based audio, iOS-specific changes, and additional maintainer changes that are not in upstream touchHLE, compatibility may differ from touchHLE. Some games that work in touchHLE may not work in iDared 32bit, and vice versa.
+Because iLiberated uses a different CPU backend, SDL-based audio, iOS-specific changes, and additional maintainer changes that are not in upstream touchHLE, compatibility may differ from touchHLE. Some games that work in touchHLE may not work in iLiberated, and vice versa.
 
 ## Platform support
 
-iDared 32bit is built, tested and released as a native **iOS** app for iPhone and iPad (AArch64).
+iLiberated primarily targets a native **iOS** app for iPhone and iPad (AArch64). See the [building guide](dev-docs/building.md) to build it yourself.
 
-* Officially supported:
-  * iOS, released on the App Store.
+* Primary targets:
+  * iOS 15 and later.
   * iOS Simulator on Apple Silicon and Intel Macs, for development. See the [Simulator build instructions](dev-docs/building.md#ios-simulator).
   * AArch64 macOS, which is used for development. You must build it yourself.
 * Inherited from touchHLE, but not verified in this fork: x64 macOS, x64 and AArch64 Linux, x64 Windows and AArch64 Android. You must build these yourself.
 
-There are no binary releases except the App Store app. This fork's GitHub Actions only check formatting and run lint and tests; they don't build releases.
+iLiberated is a separate project from the iDared App Store app. This fork's GitHub Actions only check formatting and run lint and tests; they don't build releases.
 
 ## Important disclaimers
 
 This project is not affiliated with or endorsed by Apple Inc in any way. iPhone, iOS, iPod, iPod touch and iPad are trademarks of Apple Inc in the United States and other countries.
 
-Only use iDared 32bit to emulate software you have obtained legally.
+Only use iLiberated to emulate software you have obtained legally.
 
-Not an official touchHLE release, and not affiliated with or endorsed by the touchHLE project — please direct questions or problems regarding iDared 32bit here, not to the touchHLE project.
+Not an official iDared 32bit release, and not affiliated with or endorsed by the iDared 32bit project. Please send iLiberated questions, problems and compatibility reports to this repository, not to iDared's support channels.
 
-Not affiliated with or endorsed by the mGBA project, whose ARM interpreter iDared 32bit's CPU core is derived from — please direct questions or problems regarding iDared 32bit here, not to the mGBA project.
+Not an official touchHLE release — please direct questions or problems regarding iLiberated here, not to the touchHLE project.
+
+Not affiliated with or endorsed by the mGBA project, whose ARM interpreter iLiberated's CPU core is derived from — please direct questions or problems regarding iLiberated here, not to the mGBA project.
 
 ## Graphical user interface
 
-iDared 32bit uses the same built-in app picker on all platforms. If you put your `.ipa` files and `.app` bundles in the `Games` folder, they will show up in the app picker when you run iDared 32bit. Note that the app binary must not be encrypted to be usable.
-To access the `Games` folder, simply tap the “File manager” button in iDared 32bit.
+iLiberated uses the same built-in app picker on all platforms. If you put your `.ipa` files and `.app` bundles in the `Games` folder, they will show up in the app picker when you run iLiberated. Note that the app binary must not be encrypted to be usable.
+To access the `Games` folder, simply tap the “File manager” button in iLiberated.
 
 On iPhone and iPad, the File manager button opens the app's Documents folder in Files. You can return to the picker after using Files or visiting the website. Quick options apply to the next game you launch, and Copyright info shows the bundled license notices.
 
@@ -67,31 +74,35 @@ To configure the options, you can edit the `Options.txt` file. To get a list of 
 
 Any data saved by the app (e.g. **saved games**) are stored in the `Saves` folder.
 
-These are the names on iOS. Older versions used touchHLE's names (`touchHLE_apps`, `touchHLE_options.txt`, `touchHLE_sandbox` and `touchHLE_wallpaper.png`), and iDared 32bit moves them to the new names automatically. Other platforms still use touchHLE's names.
+These are the names on iOS. Older versions used touchHLE's names (`touchHLE_apps`, `touchHLE_options.txt`, `touchHLE_sandbox` and `touchHLE_wallpaper.png`), and iLiberated moves them to the new names automatically. Other platforms still use touchHLE's names.
+
+iLiberated uses the app identifier `org.ac27.iliberated` on iOS and Android, so it installs separately from iDared 32bit and has its own storage. To move from iDared 32bit, copy your games, saves and options into iLiberated's folders using the file manager. The automatic filename migration above only applies to files already inside iLiberated's storage.
 
 ## License
+
+iLiberated © 2026 iLiberated project contributors.
 
 iDared 32bit © 2026 iDared 32bit project contributors.
 
 touchHLE © 2023–2026 touchHLE project contributors.
 
-iDared 32bit is based on touchHLE. Its source code, including touchHLE's and the modifications made to it here, is licensed under the Mozilla Public License 2.0 (MPL-2.0). The iDared 32bit name, logo and app icon are not; see below.
+iLiberated is based on iDared 32bit and touchHLE. Its source code, including the modifications made to it here, is licensed under the Mozilla Public License 2.0 (MPL-2.0).
 
 **Distributed binaries are also licensed under the MPL-2.0. They are not licensed under the GNU General Public License (GPL).** Everything compiled into the executable is licensed under the MPL-2.0 or under more permissive terms; none of it is GPL-licensed.
 
-The app carries copies of the libgcc and libstdc++ dynamic libraries from Apple's iPhone OS SDK (`touchHLE_dylibs/`), which apps running inside the emulated device link against. These are separate programs, licensed under the GNU GPL version 2 or later. They run only inside the emulated device, are not linked with iDared 32bit, and do not change its license. Their license notices, and a written offer for their source code, are included in the app's license information.
+The app carries copies of the libgcc and libstdc++ dynamic libraries from Apple's iPhone OS SDK (`touchHLE_dylibs/`), which apps running inside the emulated device link against. These are separate programs, licensed under the GNU GPL version 2 or later. They run only inside the emulated device, are not linked with iLiberated, and do not change its license. Their license notices, and a written offer for their source code, are included in the app's license information.
 
-Copyright, authorship, and license notices for touchHLE, mGBA, and bundled components are preserved in the source and available through the app's license information. See `LICENSE`, `src/licenses.rs`, and the applicable bundled-component directories for details.
+Copyright, authorship, and license notices for iDared 32bit, touchHLE, mGBA, and bundled components are preserved in the source and available through the app's license information. See `LICENSE`, `src/licenses.rs`, and the applicable bundled-component directories for details.
 
 ### Name, logo and app icon
 
-The iDared 32bit name, logo and app icon are © 2026 Alex Martin, all rights reserved. They are not licensed under the MPL-2.0 or any other open-source license, and the MPL-2.0 grants no rights to them either (see its section 2.3). They are in this repository only so that iDared 32bit itself can be built. These files are covered:
+The iLiberated logo and app icon are original artwork for this fork, distributed under the MPL-2.0. Their editable vector sources are `res/icon.svg` and `res/logo.svg`; see `res/README.md` for regeneration instructions. The app uses:
 
-- `iphone/iDared32bit/Assets.xcassets/AppIcon.appiconset/AppIcon.png` (the app icon)
+- `iphone/iLiberated/Assets.xcassets/AppIcon.appiconset/AppIcon.png` (the app icon)
 - `res/icon.png` (a copy of the app icon, used by the other platforms)
-- `iphone/iDared32bit/Assets.xcassets/AppPickerLogo.imageset/AppPickerLogo@3x.png` (the logo)
+- `iphone/iLiberated/Assets.xcassets/AppPickerLogo.imageset/AppPickerLogo@3x.png` (the logo)
 
-If you distribute your own build or fork, give it its own name, logo and icon, and don't present it as iDared 32bit. The code itself remains yours to use under the MPL-2.0.
+The iDared 32bit name, logo and app icon are © 2026 Alex Martin, all rights reserved. iLiberated does not include or use that artwork. References to iDared in this repository identify upstream history, attribution or dependencies; they do not imply affiliation. Dependency URLs retain their real upstream locations.
 
 # Thanks
 

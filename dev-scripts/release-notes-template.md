@@ -1,11 +1,11 @@
 <!--
-Template for the GitHub release notes of an iDared 32bit release.
+Template for the GitHub release notes of an iLiberated release.
 Write for players, not developers: no API or function names, and no names of
 specific games. Leave out sections and lines that don't apply. Delete this
 comment before publishing.
 -->
 
-This is the source for iDared 32bit VERSION, as released on the App Store (version VERSION, build BUILD).
+This is the source for iLiberated VERSION (build BUILD), an independent fork unaffiliated with iDared or touchHLE.
 
 ## What's new
 
@@ -17,9 +17,9 @@ Thanks to CONTRIBUTORS for their contributions. <!-- Everyone but you whose comm
 
 ## Documentation and project
 
-- The full list of changes is in CHANGELOG-iDared32bit.md.
+- The full list of changes is in CHANGELOG-iLiberated.md.
 - … <!-- README and other documentation changes. -->
 
 ## License
 
-iDared 32bit, including the App Store build, is licensed under the [Mozilla Public License 2.0](https://github.com/iDared32bit-emu/iDared32bit/blob/idared32bit/LICENSE).
+iLiberated is licensed under the [Mozilla Public License 2.0](https://github.com/ciciplusplus/iliberated-private/blob/ilberated/LICENSE).

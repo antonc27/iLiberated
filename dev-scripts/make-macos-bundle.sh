@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-# Creates the .app bundle containing the basic set of files needed for touchHLE
+# Creates the .app bundle containing the basic set of files needed for iLiberated
 # to run. Also adds an icon and metadata similar to the Android APK.
 
 if [[ $# == 3 ]]; then
@@ -10,12 +10,12 @@ if [[ $# == 3 ]]; then
     BRANDING="$3"
     shift 3
 
-    # iDared 32bit has one icon for every branding.
+    # iLiberated has one icon for every branding.
     ICON_NAME=icon
     if [[ "x$BRANDING" == "x" ]]; then
-        APP_NAME=touchHLE
+        APP_NAME=iLiberated
     else
-        APP_NAME="touchHLE $BRANDING"
+        APP_NAME="iLiberated $BRANDING"
         VERSION="$VERSION $BRANDING"
     fi
     rm -rf "$ICON_NAME.icns" "$ICON_NAME.iconset"
@@ -25,7 +25,7 @@ if [[ $# == 3 ]]; then
 
     rm -rf "$APP_NAME.app"
     mkdir -p "$APP_NAME.app"/Contents/MacOS "$APP_NAME.app"/Contents/Resources
-    cp $PATH_TO_BINARY "$APP_NAME.app"/Contents/MacOS/touchHLE
+    cp "$PATH_TO_BINARY" "$APP_NAME.app"/Contents/MacOS/iLiberated
     cp -r ../touchHLE_dylibs "$APP_NAME.app"/Contents/Resources/
     cp -r ../touchHLE_fonts "$APP_NAME.app"/Contents/Resources/
     cp -r ../touchHLE_default_options.txt "$APP_NAME.app"/Contents/Resources/
@@ -35,7 +35,7 @@ if [[ $# == 3 ]]; then
     plutil -insert CFBundleName -string "$APP_NAME" "$APP_NAME.app"/Contents/Info.plist
     plutil -insert CFBundleDisplayName -string "$APP_NAME" "$APP_NAME.app"/Contents/Info.plist
     plutil -insert CFBundleShortVersionString -string "$VERSION" "$APP_NAME.app"/Contents/Info.plist
-    plutil -insert CFBundleExecutable -string touchHLE "$APP_NAME.app"/Contents/Info.plist
+    plutil -insert CFBundleExecutable -string iLiberated "$APP_NAME.app"/Contents/Info.plist
     plutil -insert CFBundleIconFile -string "$ICON_NAME" "$APP_NAME.app"/Contents/Info.plist
 else
     echo "Incorrect usage."

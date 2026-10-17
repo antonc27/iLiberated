@@ -77,13 +77,13 @@ android {
     }
     defaultConfig {
         val branding = getTouchHLEBranding()
-        applicationId = "org.alexmartin.idared32bit"
+        applicationId = "org.ac27.iliberated"
         if (!branding.isEmpty()) {
             applicationIdSuffix = branding.lowercase()
         }
-        resValue("string", "app_name", join("iDared 32bit", " ", branding))
-        buildConfigField("String", "APP_NAME", "\"${join("iDared 32bit", " ", branding)}\"")
-        // iDared 32bit has one icon for every branding.
+        resValue("string", "app_name", join("iLiberated", " ", branding))
+        buildConfigField("String", "APP_NAME", "\"${join("iLiberated", " ", branding)}\"")
+        // iLiberated has one icon for every branding.
         manifestPlaceholders["icon"] = "@drawable/icon"
         buildConfigField("int", "APP_ICON", "R.drawable.icon")
         versionName = join(getVersionName(), " ", branding)
@@ -181,7 +181,7 @@ android {
     lint {
         abortOnError = false
     }
-    namespace = "org.alexmartin.idared32bit"
+    namespace = "org.ac27.iliberated"
 }
 
 cargoNdk {

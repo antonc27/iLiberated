@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1024" height="1024" viewBox="0 0 1024 1024">
+<rect x="-102.4" y="-102.4" width="1228.8" height="1228.8" fill="rgb(6.27451%, 12.156863%, 18.431373%)" fill-opacity="1"/>
+<path fill="none" stroke-width="48" stroke-linecap="butt" stroke-linejoin="miter" stroke="rgb(40.784314%, 87.843137%, 69.803922%)" stroke-opacity="1" stroke-miterlimit="10" d="M 504 240 L 248 240 L 248 792 L 776 792 L 776 536 "/>
+<path fill-rule="nonzero" fill="rgb(94.117647%, 97.254902%, 98.039216%)" fill-opacity="1" d="M 352 384 L 432 384 L 432 464 L 352 464 Z M 352 384 "/>
+<path fill-rule="nonzero" fill="rgb(94.117647%, 97.254902%, 98.039216%)" fill-opacity="1" d="M 352 512 L 432 512 L 432 680 L 352 680 Z M 352 512 "/>
+<path fill-rule="nonzero" fill="rgb(94.117647%, 97.254902%, 98.039216%)" fill-opacity="1" d="M 512 384 L 592 384 L 592 680 L 512 680 Z M 512 384 "/>
+<path fill-rule="nonzero" fill="rgb(94.117647%, 97.254902%, 98.039216%)" fill-opacity="1" d="M 592 600 L 680 600 L 680 680 L 592 680 Z M 592 600 "/>
+<path fill-rule="nonzero" fill="rgb(40.784314%, 87.843137%, 69.803922%)" fill-opacity="1" d="M 592 256 L 680 256 L 680 344 L 592 344 Z M 592 256 "/>
+<path fill-rule="nonzero" fill="rgb(40.784314%, 87.843137%, 69.803922%)" fill-opacity="1" d="M 736 112 L 848 112 L 848 224 L 736 224 Z M 736 112 "/>
+</svg>

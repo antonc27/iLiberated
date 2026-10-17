@@ -1,11 +1,11 @@
 #!/bin/bash
-# Prepares an iDared 32bit release, or a new build of the current one, all
+# Prepares an iLiberated release, or a new build of the current one, all
 # locally so you can check it before pushing anything:
 #
 # 1. Sets the app's version in iphone/Config.xcconfig, the only place it's
 #    set. A new version starts again at build 1; the current version gets
 #    its next build number.
-# 2. Updates CHANGELOG-iDared32bit.md:
+# 2. Updates CHANGELOG-iLiberated.md:
 #    - New version: renames the NEXT section to the version. If there isn't
 #      one, it adds a section drafted from the commits since the last
 #      release's tag, for you to rewrite, and stops there (see below).
@@ -36,7 +36,7 @@ fi
 
 cd "$(dirname "$0")/.."
 XCCONFIG=iphone/Config.xcconfig
-CHANGELOG=CHANGELOG-iDared32bit.md
+CHANGELOG=CHANGELOG-iLiberated.md
 TAG="v$VERSION"
 
 OLD_VERSION=$(sed -n 's/^MARKETING_VERSION = //p' "$XCCONFIG")
@@ -175,8 +175,8 @@ elif grep -q '^## NEXT$' "$CHANGELOG"; then
     mv "$CHANGELOG.tmp" "$CHANGELOG"
     CHANGELOG_DONE="Renamed the NEXT section of $CHANGELOG to v$VERSION."
 else
-    # Otherwise it's drafted from the commit subjects since the last iDared
-    # 32bit release's tag (touchHLE's own tags are v0.x). Commits by anyone but
+    # Otherwise it's drafted from the commit subjects since the last fork
+    # release's tag (touchHLE's own tags are v0.x). Commits by anyone but
     # you (going by git's user.email) are credited, and fixup and version bump
     # commits are left out.
     LAST_TAG=$(git describe --tags --abbrev=0 --match 'v[1-9]*' 2>/dev/null || true)
@@ -200,8 +200,8 @@ else
     {
         echo "$HEADING"
         echo
-        echo "<!-- Draft of the commits $SINCE. Rewrite it for people using iDared"
-        echo "32bit: group it under Compatibility, Usability, Documentation and Other,"
+        echo "<!-- Draft of the commits $SINCE. Rewrite it for people using iLiberated:"
+        echo "group it under Compatibility, Usability, Documentation and Other,"
         echo "leave out what isn't worth mentioning, and don't name specific games for"
         echo "fixes. Then delete this comment. -->"
         echo
@@ -229,12 +229,12 @@ else
 fi
 
 SUBJECT="Set app version to $VERSION (Build $BUILD)"
-TAG_MSG1="iDared 32bit $VERSION"
-TAG_MSG2="Source for iDared 32bit $VERSION. The App Store build ($VERSION, build $BUILD) was built from this code."
+TAG_MSG1="iLiberated $VERSION"
+TAG_MSG2="Source for iLiberated $VERSION (build $BUILD)."
 TAG_MSG3="Licensed under the Mozilla Public License 2.0."
 BRANCH=$(git symbolic-ref --short -q HEAD || echo "<branch>")
 
-echo "Set iDared 32bit's version to $VERSION, build $BUILD (it was $OLD_VERSION, build $OLD_BUILD), in $XCCONFIG."
+echo "Set iLiberated's version to $VERSION, build $BUILD (it was $OLD_VERSION, build $OLD_BUILD), in $XCCONFIG."
 echo "$CHANGELOG_DONE"
 
 if [ -n "$DRAFTED" ]; then
@@ -247,7 +247,7 @@ Next:
   2. Commit: git commit -m "$SUBJECT" $XCCONFIG $CHANGELOG
   3. Tag it:
        git tag -a $TAG -m "$TAG_MSG1" -m "$TAG_MSG2" -m "$TAG_MSG3"
-  4. Build it and submit it with Xcode.
+  4. Build and archive it with Xcode.
   5. Push the branch and the tag:
        git push <remote> $BRANCH
        git push <remote> $TAG
@@ -286,7 +286,7 @@ cat <<EOF
 Nothing has been pushed. Next:
   1. Check it: git show; git show $TAG
      To undo it all: $UNDO
-  2. Build it and submit it with Xcode.
+  2. Build and archive it with Xcode.
   3. Push the branch and the tag:
        git push <remote> $BRANCH
        $TAG_PUSH

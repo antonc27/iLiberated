@@ -7,8 +7,8 @@
 version = "0.3.0"
 edition = "2021"
 license = "MPL-2.0"
-authors = ["touchHLE project contributors"]
-homepage = "http://iDared32bit-emu.com/"
+authors = ["iLiberated project contributors", "iDared 32bit project contributors", "touchHLE project contributors"]
+homepage = "https://github.com/ciciplusplus/iliberated-private"
 
 [package]
 name = "touchHLE"

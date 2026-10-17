@@ -1,14 +1,14 @@
 name: Lint and test
 
-# Slimmed-down CI for the iDared 32bit fork: formatting, lint (clippy) and the
+# Slimmed-down CI for the iLiberated fork: formatting, lint (clippy) and the
 # test suite only. This fork does not build or publish desktop/Android binary
 # artifacts (its release is the iOS app), so no build/bundle/upload steps.
 
 on:
   push:
-    branches: [ "idared32bit" ]
+    branches: [ "ilberated" ]
   pull_request:
-    branches: [ "idared32bit" ]
+    branches: [ "ilberated" ]
   workflow_dispatch:
 
 env:

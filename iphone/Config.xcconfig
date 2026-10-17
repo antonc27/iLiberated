@@ -1,4 +1,4 @@
-// Base build configuration for iDared 32bit (iOS app).
+// Base build configuration for iLiberated (iOS app).
 //
 // Signing settings — your Apple Development Team ID — live in the git-ignored
 // Local.xcconfig at the repo root (one file shared with the dev/standalone

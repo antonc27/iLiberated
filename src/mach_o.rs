@@ -547,7 +547,7 @@ impl MachO {
                     }
                 }
                 LoadCommand::EncryptionInfo { id, .. } if id != 0 => {
-                    return Err("The game is encrypted. iDared 32bit can't run encrypted games.");
+                    return Err("The game is encrypted. iLiberated can't run encrypted games.");
                 }
                 LoadCommand::LoadDyLib(DyLib { name, .. }) => {
                     dynamic_libraries.push(String::from(&*name));

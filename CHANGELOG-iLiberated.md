@@ -1,6 +1,16 @@
-# iDared 32bit changelog
+# iLiberated changelog
 
-iDared 32bit is based on [touchHLE](https://touchhle.org/). This file lists only iDared 32bit's own changes. The touchHLE changes it includes are in [CHANGELOG.md](CHANGELOG.md), which is touchHLE's own changelog, kept exactly as it is upstream.
+iLiberated is an independent fork of iDared 32bit, based on [touchHLE](https://touchhle.org/). Versions v1.4.2 and earlier below are historical iDared 32bit releases, preserved with their original names and attribution. The touchHLE changes are in [CHANGELOG.md](CHANGELOG.md), kept as they are upstream.
+
+## NEXT
+
+Project:
+
+- Introduced iLiberated as an independent fork, unaffiliated with iDared, with its own logo and app icon.
+- Renamed the app, native bridge, iOS project and scheme, Android packages, messages, documentation and release tooling.
+- Changed the iOS and Android app identifier to `org.ac27.iliberated`. iLiberated installs separately; copy games, saves and options from the old app using the file manager.
+- Pointed project links, support and source requests to the iLiberated repository. Preserved upstream credits, release history and actual dependency source URLs.
+- Updated CI to follow this repository's `ilberated` branch.
 
 ## v1.4.2 (2026-10-14)
 

@@ -5,43 +5,46 @@
  */
 //! Prints copyright, authorship and license information.
 
-const IDARED_FORK_NOTICE: &str = "
-iDared 32bit is a fork of touchHLE, with a few differences in this build:
+const ILIBERATED_FORK_NOTICE: &str = "
+iLiberated is an independent fork of iDared 32bit, based on touchHLE.
+Compared with touchHLE, it inherits these changes from iDared 32bit:
 
   - CPU emulation uses an ARM interpreter derived from mGBA's (replaces
     Dynarmic JIT)
   - The guest-facing OpenAL uses SDL audio (replaces OpenAL Soft library)
 
-The maintainer (@apexad) contributed to touchHLE until this App Store
-release, which the touchHLE project did not want, and is no longer part of
-that project. This build includes changes that are not in touchHLE.
-iDared 32bit is not affiliated with or endorsed by the touchHLE project.
-Please don't ask touchHLE for support with iDared 32bit, or submit results
-to touchHLE's compatibility database. Contact support@idared32bit-emu.com
-instead.
+This build includes work by the iDared 32bit and touchHLE contributors.
+iLiberated is not affiliated with or endorsed by iDared or touchHLE.
+Please send questions, problems and compatibility reports to iLiberated,
+rather than to those projects or touchHLE's compatibility database:
+<https://github.com/antonc27/iDared32bit/issues>.
 
-Source code for iDared 32bit, including the version of touchHLE it is based
-on, is available at <https://github.com/iDared32bit-emu/iDared32bit>.
+Source code for iLiberated, including the version of touchHLE it is based
+on, is available at <https://github.com/antonc27/iDared32bit>.
 
-The copyright, authorship and license information below applies to iDared 32bit
+The copyright, authorship and license information below applies to iLiberated
 in full.
 ";
 
 const MAIN_COPYRIGHT: &str = "
+iLiberated © 2026 iLiberated project contributors.
+
 iDared 32bit © 2026 iDared 32bit project contributors.
 
 touchHLE © 2023–2026 touchHLE project contributors.
 ";
 
 const MAIN_LICENSE: &str = "
-This program, iDared 32bit, is licensed under the Mozilla Public License,
+This program, iLiberated, is licensed under the Mozilla Public License,
 version 2.0 (MPL-2.0). You can obtain a copy of the license at
 <https://mozilla.org/MPL/2.0/>, and the source code at the address given
 above.
 
+The iLiberated logo and app icon are original artwork for this fork,
+distributed under the MPL-2.0.
+
 The iDared 32bit name, logo and app icon are © 2026 Alex Martin, all rights
-reserved. They are not licensed under the MPL-2.0 or any other open-source
-license.
+reserved. That artwork is not included in iLiberated.
 
 This program is not licensed under the GNU General Public License (GPL). Its
 own code, and every library it is built from, is licensed under MPL-2.0 or
@@ -55,11 +58,11 @@ libstdc++ libraries from Apple's iPhone OS SDK, which apps running inside the
 emulated device link against. On iOS, these copies are stored inside the app's
 executable file, as data. They are separate programs, licensed under the GNU
 GPL version 2 or later. They run only inside the emulated device, are not
-linked with iDared 32bit, and do not change its license. Their license notices,
+linked with iLiberated, and do not change its license. Their license notices,
 and a written offer for their source code, are included with this program.
 ";
 
-// See android/app/src/main/java/org/alexmartin/idared32bit/DocumentsProvider.kt
+// See android/app/src/main/java/org/ac27/iliberated/DocumentsProvider.kt
 #[cfg(target_os = "android")]
 const SKYLINE: &str = "
 touchHLE for Android incorporates code originally from the Skyline emulator
@@ -79,13 +82,13 @@ and licensed as follows:
 const RUST_DEPENDENCIES: &str = include_str!(concat!(env!("OUT_DIR"), "/rust_dependencies.txt"));
 
 const MGBA_DESCRIPTION: &str = "
-iDared 32bit, and therefore this executable, incorporates a modified copy of
+iLiberated, and therefore this executable, incorporates a modified copy of
 the ARM interpreter from the mGBA Game Boy Advance emulator (in
 vendor/mgba_arm/), which this build extends from ARMv4T to ARMv7s.
 mGBA is copyright © 2013–2024 Jeffrey Pfau, and is available under the Mozilla
 Public License, version 2.0 -- the same license as the rest of this program.
-The modified source files are published with the rest of iDared 32bit's source
-code (see above). iDared 32bit is not affiliated with or endorsed by the mGBA
+The modified source files are published with the rest of iLiberated's source
+code (see above). iLiberated is not affiliated with or endorsed by the mGBA
 project.
 ";
 
@@ -145,13 +148,13 @@ consult the respective directories for more information.
 // allows passing it along for noncommercial distribution, so this build makes
 // its own 3(b) offer.
 const INTERNAL_FSF_DYLIBS_DESCRIPTION: &str = "
-This distribution of iDared 32bit includes binaries for the libgcc and libstdc++
+This distribution of iLiberated includes binaries for the libgcc and libstdc++
 libraries from the Free Software Foundation, as originally distributed by Apple:
 ";
 
 const INTERNAL_FSF_DYLIBS_OFFER: &str = "
 Written offer, valid for three years from the date you received this
-distribution: on request, the maintainer of iDared 32bit will give any third
+distribution: on request, the maintainer of iLiberated will give any third
 party a complete machine-readable copy of the corresponding source code for
 the libgcc and libstdc++ binaries included here, for no more than the cost of
 performing the distribution. That source is also published at:
@@ -159,33 +162,33 @@ performing the distribution. That source is also published at:
   libgcc    <https://github.com/iDared32bit-emu/gcc> (tag gcc-5664)
   libstdc++ <https://github.com/iDared32bit-emu/libstdcxx> (tag libstdcxx-39)
 
-Requests: admin@idared32bit-emu.com
+Requests: <https://github.com/ciciplusplus/iliberated-private/issues>
 ";
 
 const INTERNAL_ZLIB_DYLIB_DESCRIPTION: &str = "
-This distribution of iDared 32bit includes binaries for zlib (libz), available under
+This distribution of iLiberated includes binaries for zlib (libz), available under
 the following license:
 ";
 
 // We have a COPYING file for SQLite, but as the main source and resulting
 // binary are simply Public Domain, we can save some space here.
 const INTERNAL_SQLITE3_DYLIB_DESCRIPTION: &str = "
-This distribution of iDared 32bit includes binaries for SQLite (libsqlite3),
+This distribution of iLiberated includes binaries for SQLite (libsqlite3),
 available under Public Domain.
 ";
 
 const INTERNAL_XML2_DYLIB_DESCRIPTION: &str = "
-This distribution of iDared 32bit includes binaries for libxml2, available under
+This distribution of iLiberated includes binaries for libxml2, available under
 the following license:
 ";
 
 const INTERNAL_LIBERATION_FONTS_DESCRIPTION: &str = "
-This distribution of iDared 32bit includes Liberation Sans fonts, available under
+This distribution of iLiberated includes Liberation Sans fonts, available under
 the following license:
 ";
 
 const INTERNAL_NOTO_FONTS_DESCRIPTION: &str = "
-This distribution of iDared 32bit includes Noto Sans CJK fonts, available under the
+This distribution of iLiberated includes Noto Sans CJK fonts, available under the
 following license:
 ";
 
@@ -238,7 +241,7 @@ fn divider(out: &mut String) -> Result<(), std::fmt::Error> {
 
 fn print(out: &mut String, resources_are_external_files: bool) -> Result<(), std::fmt::Error> {
     use std::fmt::Write;
-    writeln!(out, "{IDARED_FORK_NOTICE}")?;
+    writeln!(out, "{ILIBERATED_FORK_NOTICE}")?;
     divider(out)?;
     if resources_are_external_files {
         writeln!(out, "{EXTERNAL_FILES_CAVEAT}")?;

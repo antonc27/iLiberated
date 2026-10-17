@@ -95,8 +95,8 @@ pub extern "C" fn SDL_main(
 
     // Empty args: brings up app picker.
     match main([String::new()].into_iter()) {
-        Ok(_) => echo!("iDared 32bit finished"),
-        Err(e) => echo!("iDared 32bit errored: {e:?}"),
+        Ok(_) => echo!("iLiberated finished"),
+        Err(e) => echo!("iLiberated errored: {e:?}"),
     }
     0
 }
@@ -113,8 +113,8 @@ pub extern "C" fn SDL_main(
 
     // Empty args: brings up app picker.
     match main([String::new()].into_iter()) {
-        Ok(_) => echo!("iDared 32bit finished"),
-        Err(e) => echo!("iDared 32bit errored: {e:?}"),
+        Ok(_) => echo!("iLiberated finished"),
+        Err(e) => echo!("iLiberated errored: {e:?}"),
     }
     0
 }
@@ -140,7 +140,7 @@ Special options:
 
 pub fn main<T: Iterator<Item = String>>(mut args: T) -> Result<(), String> {
     echo!(
-        "iDared 32bit {}{}{} — https://idared32bit-emu.com/ (based on touchHLE)",
+        "iLiberated {}{}{} — https://github.com/ciciplusplus/iliberated-private (based on touchHLE)",
         branding(),
         if branding().is_empty() { "" } else { " " },
         VERSION,
@@ -159,7 +159,7 @@ pub fn main<T: Iterator<Item = String>>(mut args: T) -> Result<(), String> {
 
     {
         let base_path = paths::user_data_base_path();
-        log!("Base path for iDared 32bit files: {}", base_path.display());
+        log!("Base path for iLiberated files: {}", base_path.display());
         #[cfg(target_os = "ios")]
         paths::migrate_old_names();
         paths::prepopulate_user_data_dir();

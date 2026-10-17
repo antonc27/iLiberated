@@ -1,8 +1,8 @@
-# Contributing to iDared 32bit
+# Contributing to iLiberated
 
-iDared 32bit takes contributions as ordinary GitHub pull requests. There is no separate code review system, mailing list or sign-up: fork the repository, make your changes and open a pull request.
+iLiberated takes contributions as ordinary GitHub pull requests. There is no separate code review system, mailing list or sign-up: fork the repository, make your changes and open a pull request.
 
-iDared 32bit is independent of touchHLE. Please send issues and pull requests for iDared 32bit here, not to the touchHLE project.
+iLiberated is independent of iDared and touchHLE. Please send issues and pull requests for iLiberated here, not to those projects.
 
 Please also read the [code of conduct](CODE_OF_CONDUCT.md).
 
@@ -10,21 +10,21 @@ Please also read the [code of conduct](CODE_OF_CONDUCT.md).
 
 There are a great many apps that don't work yet, so please only open an issue about a broken app if one of these applies:
 
-- It worked in an earlier version of iDared 32bit, and you can reproduce the difference.
+- It worked in an earlier version of iLiberated, and you can reproduce the difference.
 - It partly works (for example, it reaches the menu but the game itself fails). An app's splash screen (`Default.png`) appearing doesn't count as partly working.
 
-Include the iDared 32bit version, your device and iOS version, what you did, what happened, and the log if you have it.
+Include the iLiberated version, your device and iOS version, what you did, what happened, and the log if you have it.
 
 ## Pull requests
 
 ### Getting the code
 
 ```
-$ git clone https://github.com/iDared32bit-emu/iDared32bit.git
-$ cd iDared32bit
+$ git clone https://github.com/antonc27/iDared32bit.git
+$ cd iliberated-private
 ```
 
-To contribute, [fork the repository](https://github.com/iDared32bit-emu/iDared32bit/fork) on GitHub, push a branch to your fork, and open a pull request against the default branch.
+To contribute, [fork the repository](https://github.com/antonc27/iDared32bit/fork) on GitHub, push a branch to your fork, and open a pull request against the default branch.
 
 ### Before you open one
 

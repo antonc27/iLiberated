@@ -42,7 +42,7 @@ pub fn main() {
             format!("v{toml_version} (git rev. unknown)")
         }
     };
-    // The version shown in the app is iDared 32bit's own, set only in the iOS
+    // The version shown in the app is iLiberated's own, set only in the iOS
     // app's Config.xcconfig, which the Xcode project also takes it from.
     let xcconfig_path = workspace_root.join("iphone/Config.xcconfig");
     rerun_if_changed(&xcconfig_path);

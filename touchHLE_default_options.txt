@@ -4,7 +4,7 @@
 #
 # ---
 #
-# This file contains iDared 32bit's recommended default options for various
+# This file contains iLiberated's recommended default options for various
 # games.
 #
 # *** Don't edit this file yourself! Use your own options file instead. ***

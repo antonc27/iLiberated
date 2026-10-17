@@ -16,9 +16,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E3A46EC22DD1A44100619FED"
-               BuildableName = "iDared 32bit.app"
-               BlueprintName = "iDared 32bit"
-               ReferencedContainer = "container:iDared32bit.xcodeproj">
+               BuildableName = "iLiberated.app"
+               BlueprintName = "iLiberated"
+               ReferencedContainer = "container:iLiberated.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -46,9 +46,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E3A46EC22DD1A44100619FED"
-            BuildableName = "iDared 32bit.app"
-            BlueprintName = "iDared 32bit"
-            ReferencedContainer = "container:iDared32bit.xcodeproj">
+            BuildableName = "iLiberated.app"
+            BlueprintName = "iLiberated"
+            ReferencedContainer = "container:iLiberated.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -63,9 +63,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E3A46EC22DD1A44100619FED"
-            BuildableName = "iDared 32bit.app"
-            BlueprintName = "iDared 32bit"
-            ReferencedContainer = "container:iDared32bit.xcodeproj">
+            BuildableName = "iLiberated.app"
+            BlueprintName = "iLiberated"
+            ReferencedContainer = "container:iLiberated.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

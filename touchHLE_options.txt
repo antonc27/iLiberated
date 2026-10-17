@@ -1,6 +1,6 @@
 # This file lets you set options for each of your games.
 #
-# Options in this file take precedence over iDared 32bit's built-in defaults.
+# Options in this file take precedence over iLiberated's built-in defaults.
 #
 # ---
 #

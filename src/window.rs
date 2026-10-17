@@ -2105,8 +2105,8 @@ pub fn show_error_messagebox(window: Option<&Window>, error_message: &str) {
     let Ok(clicked_button) = messagebox::show_message_box(
         messagebox::MessageBoxFlag::ERROR,
         &mbox,
-        "iDared 32bit crashed!",
-        &format!("iDared 32bit crashed with the following error: {error_message}"),
+        "iLiberated crashed!",
+        &format!("iLiberated crashed with the following error: {error_message}"),
         window.map(|win| &win.window),
         None,
     ) else {

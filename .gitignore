@@ -16,7 +16,7 @@ touchHLE_wallpaper.*
 **/*.playground/**/timeline.xctimeline
 
 # Root (cargo-xcode-generated) project: opening it auto-generates scheme and
-# workspace state that isn't meant to be shared. Only iphone/iDared32bit.xcodeproj
+# workspace state that isn't meant to be shared. Only iphone/iLiberated.xcodeproj
 # has an intentionally-tracked shared scheme.
 /touchHLE.xcodeproj/xcshareddata/
 
